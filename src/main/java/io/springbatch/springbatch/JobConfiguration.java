@@ -19,6 +19,7 @@ public class JobConfiguration {
 
     private final JobBuilderFactory jobBuilderFactory;
     private final StepBuilderFactory stepBuilderFactory;
+    private final CustomContextTasklet customContextTasklet;
 
 
     @Bean
@@ -27,6 +28,7 @@ public class JobConfiguration {
                 .start(step1_tasklet()) //필수
                 .next(step2())
                 .next(step3())
+                .next(step4())
                 .build();
     }
 
@@ -36,6 +38,13 @@ public class JobConfiguration {
         return stepBuilderFactory.get("step1")
                 .tasklet(new CustomTasklet()).build();
 
+    }
+
+    @Bean
+    public Step step4() {   //context 활용하기(설정파일)
+        //무한 반복
+        return stepBuilderFactory.get("step4")
+                .tasklet((customContextTasklet)).build();   //bean
     }
 
     @Bean
