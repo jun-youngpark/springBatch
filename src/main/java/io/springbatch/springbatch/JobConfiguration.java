@@ -1,10 +1,7 @@
 package io.springbatch.springbatch;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.batch.core.Job;
-import org.springframework.batch.core.JobParameters;
-import org.springframework.batch.core.Step;
-import org.springframework.batch.core.StepContribution;
+import org.springframework.batch.core.*;
 import org.springframework.batch.core.configuration.annotation.JobBuilderFactory;
 import org.springframework.batch.core.configuration.annotation.StepBuilderFactory;
 import org.springframework.batch.core.scope.context.ChunkContext;
@@ -20,6 +17,7 @@ public class JobConfiguration {
     private final JobBuilderFactory jobBuilderFactory;
     private final StepBuilderFactory stepBuilderFactory;
     private final CustomContextTasklet customContextTasklet;
+    private final JobExecutionListener jobExecutionListener;
 
 
     @Bean
@@ -29,8 +27,11 @@ public class JobConfiguration {
                 .next(step2())
                 .next(step3())
                 .next(step4())
+                .listener(jobExecutionListener)
                 .build();
     }
+
+
 
     @Bean
     public Step step3() {

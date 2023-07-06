@@ -30,8 +30,8 @@ public class JobRunner implements ApplicationRunner {
     public void run(ApplicationArguments args) throws Exception {
       JobParameters jobPrameters = new JobParametersBuilder()
                 .addString("name","user2")
-                .addDate("date",new Date())
-                .addDouble("age",15.4)
+                //.addDate("date",new Date())
+                //.addDouble("age",15.4)
                 .toJobParameters();
 
       jobLauncher.run(job , jobPrameters);
